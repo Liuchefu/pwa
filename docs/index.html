@@ -1,47 +1,43 @@
-<!DOCTYPE  html>
 <html>
   <head>
     <meta charset="utf-8">
-    <meta name="viewport"  content="width=device-width, initial-scale=1">
-    <link rel="manifest"  href="./manifest.json">
-    <link rel="stylesheet"  href="./css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="./manifest.json">
+    <link rel="stylesheet" href="./css/style.css">
     <title>Hello, PWA !!</title>
+    <body>
+      <div id="offline"></div>
+      <div id="online"></div>
 
-    <!-- Vue.js -->
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    
-    <!-- Onsen UI -->
-    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
-    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
-    <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
-    
-  </head>
-  <body>
-    <ons-navigator id="navigator" page="page1.html"></ons-navigator>
-    
-    <div id='app'>
-      <p>{{message}}</p>
-      <ons-button onclick="ons.notification.alert('Hello World!')">Click Me</ons-button>
-    </div>
-
-    <script>
-      // ServiceWorker登録
-      if ('serviceWorker'  in navigator) {
-        navigator.serviceWorker.register('./sw.js').then(function(registration) {
-          console.log('ServiceWorker registration successful with scope: ', registration.scope);
-        }).catch(function(err) {
-          console.log('ServiceWorker registration failed: ', err);
-        });
-      }
-
-      // Vueアプリの定義
-      var vue = new Vue({
-        el: '#app',
-        data:{
-          message:'Hello, Vue !'
+      <script>
+        // ServiceWorker登録
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('./sw.js').then(function(registration) {
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+          }).catch(function(err) {
+            console.log('ServiceWorker registration failed: ', err);
+          });
         }
-      })
-      
-    </script>
-  </body>
+
+        // オンライン/オフラインの判定
+        function isOnline() {
+          return navigator.onLine;
+        }
+
+        // 表示内容の切り替え
+        function updateDisplay() {
+          if (isOnline()) {
+            document.getElementById('offline').innerHTML = '';
+            document.getElementById('online').innerHTML = 'オンライン';
+          } else {
+            document.getElementById('online').innerHTML = '';
+            document.getElementById('offline').innerHTML = 'オフライン';
+          }
+        }
+
+        // 初期表示
+        updateDisplay();
+      </script>
+    </body>
+  </head>
 </html>
