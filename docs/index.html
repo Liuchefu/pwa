@@ -37,7 +37,21 @@
 
         // 初期表示
         updateDisplay();
+
+        // リロードボタンの無効化
+        // document.getElementById('reload').disabled = !isOnline();
+
+        // リロードボタン押下時
+
+          if (isOnline()) {
+            // オンラインの場合は、通常通りリロード
+            window.location.reload();
+          } else {
+            // オフラインの場合は、キャッシュされたコンテンツを表示
+            // キャッシュされたコンテンツの読み込み
+            // ...
+          }
+
       </script>
     </body>
   </head>
-</html>
