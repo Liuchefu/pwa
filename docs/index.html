@@ -32,6 +32,21 @@
 
     <p id="result" class="text -result"></p>
 
+    <script>
+
+
+      function displayStatus() {
+        const isOnline = navigator.onLine;
+        console.log(isOnline);
+        const resultDiv = document.querySelector('#result');
+        resultDiv.textContent = isOnline ? 'オンライン' : 'オフライン';
+      }
+
+      window.addEventListener('online', displayStatus);
+      window.addEventListener('offline', displayStatus);
+      displayStatus();
+      // setInterval(displayStatus, 3000);
+    </script>
   </main>
 </body>
 </html>
