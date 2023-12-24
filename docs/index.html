@@ -1,57 +1,37 @@
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="manifest" href="./manifest.json">
-    <link rel="stylesheet" href="./css/style.css">
-    <title>Hello, PWA !!</title>
-    <body>
-      <div id="offline"></div>
-      <div id="online"></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Count to 3</title>
+  <script src="./assert/js/script.js" defer></script>
+  <!-- ウェブアプリマニフェストの読み込み -->
+  <link rel="manifest" href="manifest.json" />
+  <!-- ios用の設定 -->
+  <!-- アドレスバー等のブラウザのUIを非表示 -->
+  <meta name="apple-mobile-web-app-creable" content="yes" />
+  <!-- default (Safariと同じ色) /black(黒) / black-translucent (ステータスバー半透明にしてコンテンツ含める) -->
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <!-- ホーム画面に表示されるアプリ名 -->
+  <meta name="apple-mobaile-web-app-title" content="Count3second" />
+  <!-- ホーム画面に表示されるアプリアイコン -->
+  <link rel="apple-touch-icon" href="./assert/images/app-icon-192.png" />
+  <!-- アドレスバーの色を設定 -->
+  <meta name="theme-color" content="#F56F46" />
+</head>
+<body>
+  <main>
+    <p class="text">
+      ボタンを押すとスタート<br />3秒ピッタリでもう一度ボタンを押下して
+    </p>
 
-      <script>
-        // ServiceWorker登録
-        if ('serviceWorker' in navigator) {
-          navigator.serviceWorker.register('./sw.js').then(function(registration) {
-            console.log('ServiceWorker registration successful with scope: ', registration.scope);
-          }).catch(function(err) {
-            console.log('ServiceWorker registration failed: ', err);
-          });
-        }
+    <div id="buttonWrap" class="buttonWrap">
+      <button id="start" type="button" class="button -start">スタート</button>
+      <button id="stop" type="button" class="button -stop">ストップ</button>
+    </div>
 
-        // オンライン/オフラインの判定
-        function isOnline() {
-          return navigator.onLine;
-        }
+    <p id="result" class="text -result"></p>
 
-        // 表示内容の切り替え
-        function updateDisplay() {
-          if (isOnline()) {
-            document.getElementById('offline').innerHTML = '';
-            document.getElementById('online').innerHTML = 'オンライン';
-          } else {
-            document.getElementById('online').innerHTML = '';
-            document.getElementById('offline').innerHTML = 'オフライン';
-          }
-        }
-
-        // 初期表示
-        updateDisplay();
-
-        // リロードボタンの無効化
-        // document.getElementById('reload').disabled = !isOnline();
-
-        // リロードボタン押下時
-
-          if (isOnline()) {
-            // オンラインの場合は、通常通りリロード
-            window.location.reload();
-          } else {
-            // オフラインの場合は、キャッシュされたコンテンツを表示
-            // キャッシュされたコンテンツの読み込み
-            // ...
-          }
-
-      </script>
-    </body>
-  </head>
+  </main>
+</body>
+</html>
